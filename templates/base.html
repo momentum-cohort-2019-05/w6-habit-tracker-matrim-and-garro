@@ -8,6 +8,9 @@
   <title>Habit Tracker - {% block title %}Home{% endblock %}</title>
 </head>
 <body>
+  <a href="{% url 'home' %}">Home</a>
+  <a href="{% url 'habit-manager' %}">Habit Manager</a>
+  <a href="{% url 'social' %}">Social</a>
   {% block content %}
   {% endblock %}
 </body>
