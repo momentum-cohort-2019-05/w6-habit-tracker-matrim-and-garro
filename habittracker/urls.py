@@ -16,10 +16,13 @@ Including another URLconf
 from django.conf import settings
 from django.urls import path, include
 from django.contrib import admin
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('habits/', include('habits.urls')),
+    path('', RedirectView.as_view(url='/habits/', permanent=True)),
 ]
 
 if settings.DEBUG:
