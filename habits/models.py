@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import date
+from django.contrib.auth.models import User
+
 
 class Habit(models.Model):
     # label = models.CharField(max_length=200)
