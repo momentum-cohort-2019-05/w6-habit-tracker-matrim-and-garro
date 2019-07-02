@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Habit Manager</h1>
+<h1>Habit Manager - {{request.user}}</h1>
 
 <h3>List of Habits<h3>
 {% for habit in list_of_habits %}
