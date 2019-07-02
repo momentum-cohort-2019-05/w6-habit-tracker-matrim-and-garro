@@ -17,12 +17,13 @@ def habit_manager(request, pk):
     today = date.today()
     updated_today = {}
     for habit in list_of_habits:
-        if habit.last_update().date == today:
+        if habit.last_update() is None:
+            habit.updated_today = False
+        elif habit.last_update().date == today:
             habit.updated_today = True
         else:
             habit.updated_today = False
     
-    # breakpoint()
     return render(request, "habit_manager.html", {
         'list_of_habits' : list_of_habits,
         'updated_today' : updated_today
@@ -30,5 +31,4 @@ def habit_manager(request, pk):
 
 def social(request):
     return render(request, "social.html", {
-
     })

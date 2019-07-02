@@ -6,9 +6,18 @@
 
 <h3>List of Habits<h3>
 {% for habit in list_of_habits %}
-  <a href="">{{ habit }}</a> | {{ habit.updated_today }}
-
-
+  <a href="">{{ habit }}</a> | 
+  {% if habit.updated_today %}
+    {% if habit.last_update.meets_goal %}
+      <strong class="green">{{habit.last_update.quantity}}</strong>
+    {% else %}
+      <strong class="red">{{habit.last_update.quantity}}</strong>
+    {% endif %}
+    {{ habit.unit }} - <em> - Updated Today</em>
+  {% else %}
+    <a href="">Add today's value</a>
+  {% endif %}
+  <br>
 {% endfor %}
 
 

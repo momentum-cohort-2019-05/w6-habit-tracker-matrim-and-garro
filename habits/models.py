@@ -30,6 +30,13 @@ class DailyRecord(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
     
+    def meets_goal(self):
+        """returns True if goal is met or exceeded, otherwise False"""
+        if self.habit.over:
+            return self.quantity >= self.habit.quantity
+        else:
+            return self.quantity <= self.habit.quantity
+
     def __str__(self):
         return f"{self.date}|{self.quantity}|{self.habit}"
 
