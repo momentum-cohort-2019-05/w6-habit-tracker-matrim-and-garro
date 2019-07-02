@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h3>Habit Detail - "insert habit string here"</h3>
+<h3>Habit Detail - {{habit}}</h3>
 
 {% for record in list_of_records %}
   
@@ -18,7 +18,19 @@
       <strong class="red">{{habit.last_update.quantity}}</strong>
     {% endif %}
 
+{% for day in last_week_dates %}
+  <p>{{day.month}}-{{day.day}}-{{day.year}}</p>
+{% endfor %}
 
+{% for record in last_week_of_records %}
+  <p>
+    {% if record is None %}
+      <a href="{% url 'create-daily-record' pk=habit.pk %}">Update</a>
+    {% else %}
+      {{record.quantity}}
+    {% endif %}
+  </p>
+{% endfor %}
 
 
 
