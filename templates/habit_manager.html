@@ -15,7 +15,7 @@
     {% endif %}
     {{ habit.unit }} - <em> - Updated Today</em>
   {% else %}
-    <a href="">Add today's value</a>
+    <a href="{% url 'create-daily-record' pk=habit.pk %}">Add today's value</a>
   {% endif %}
   <br>
 {% endfor %}
