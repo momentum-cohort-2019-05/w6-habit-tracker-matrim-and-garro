@@ -9,4 +9,5 @@ urlpatterns = [
     path('social/', views.social, name='social'),
     path('create-daily-record/<int:pk>', views.create_daily_record, name='create-daily-record'),
     path('edit-daily-record/<int:pk>', views.create_daily_record, name='edit-daily-record'),
+    path('habit-detail/<int:pk>', views.habit_detail, name="habit-detail"),
 ]

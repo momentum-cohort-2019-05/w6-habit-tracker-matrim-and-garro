@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Habit Detail - "insert habit string here"</h3>
+
+{% for record in list_of_records %}
+  
+  <p>{{ record.date }} | {{ record.quantity }} | <a href="">Update</a></p>
+
+{% endfor %}
+
+
+
+{% if habit.last_update.meets_goal %}
+      <strong class="green">{{habit.last_update.quantity}}</strong>
+    {% else %}
+      <strong class="red">{{habit.last_update.quantity}}</strong>
+    {% endif %}
+
+
+
+
+
+{% endblock %}
