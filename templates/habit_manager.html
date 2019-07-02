@@ -5,6 +5,11 @@
 <h1>Habit Manager</h1>
 
 <h3>List of Habits<h3>
+{% for habit in list_of_habits %}
+  <a href="">{{ habit }}</a> | {{ habit.updated_today }}
+
+
+{% endfor %}
 
 
 
