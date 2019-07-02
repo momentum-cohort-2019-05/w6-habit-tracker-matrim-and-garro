@@ -6,11 +6,27 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   {% block meta %}{% endblock %}
   <title>Habit Tracker - {% block title %}Home{% endblock %}</title>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 </head>
-<body>
-  <a href="{% url 'home' %}">Home</a>
-  <a href="{% url 'habit-manager' %}">Habit Manager</a>
+<body class="sans-serif pv2 ph4">
+  <header class="flex items-center justify-between bg-blue white ph3">
+      <div id="title">
+        <h1 class="white">Habit Tracker</h1>
+      </div>
+      <div id="account-menu" class="tr">
+        {% if request.user.is_authenticated %}
+          <p>Hi {{request.user}}</p>
+          <a class="washed-blue" href="{% url 'auth_logout' %}">Logout</a>
+        {% else %}
+          <a class="washed-blue" href="{% url 'auth_login' %}">Login</a> | <a class="washed-blue" href="{% url 'registration_register' %}">Register</a>
+        {% endif %}
+      </div>
+  </header>
+
+  <a href="{% url 'home' %}">Home</a> |
+  <a href="{% url 'habit-manager' %}">Habit Manager</a> |
   <a href="{% url 'social' %}">Social</a>
+
   {% block content %}
   {% endblock %}
 </body>
