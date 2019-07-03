@@ -8,6 +8,8 @@
 <p class=green>All Time Best - {{all_time_best.quantity}} {{habit.unit}} {{all_time_best.date}}</p>
 <p>Average for the last {{DAYS}} day(s) - {{interval_average}} {{habit.unit}}</p>
 
+<h5>Change interval <a href="?interval=7">7 days</a> | <a href="?interval=14">14 days</a> | <a href="?interval=30">30 days</a></h5>
+
 {% for record in last_week_of_records %}
   <p>{{ record.date }} | 
   {% if record.quantity >= 0 %}
