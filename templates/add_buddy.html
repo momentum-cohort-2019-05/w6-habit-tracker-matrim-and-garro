@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content%}
+<h1>Add Buddy : {{habit}}</h1>
+<h3>{{message}}</h3>
+<form action="{% url 'add-buddy' pk=habit.pk %}" method="POST">
+    {% csrf_token %}
+    <p>Who would you like to add as a buddy for {{habit}}?</p>
+    <p><input required type="text" size="20" name="{{ form.buddy.html_name }}"></p>
+    <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Submit</button>
+</form>
+<h3>Current Buddies for this Habit:</h3>
+{% for buddy in current_buddies %}
+<p> {{buddy}} </p>
+{% endfor %}
+{% endblock %}
