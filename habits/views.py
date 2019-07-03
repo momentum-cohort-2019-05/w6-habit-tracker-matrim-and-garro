@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from habits.models import Habit, DailyRecord
+from habits.models import Habit, DailyRecord, Comment
 from django.contrib.auth.decorators import login_required
 from datetime import date, datetime
 from datetime import datetime, timedelta
-from habits.forms import CreateDailyRecord, EditDailyRecord, CreateHabit, AddBuddy
+from habits.forms import CreateDailyRecord, EditDailyRecord, CreateHabit, AddBuddy, AddComment
 from django.contrib.auth.models import User
 
 
@@ -199,3 +199,22 @@ def social(request,pk):
         'user' : user,
         'habit_buddy_list' : habit_buddy_list,
     })
+
+@login_required
+def add_comment(request,pk):
+    daily_record = DailyRecord.objects.get(pk=pk)
+    habit = daily_record.habit
+    if request.method == 'POST':
+        form = AddComment(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            new_comment = Comment(user=request.user,content=content,target_record=daily_record)
+            new_comment.save()
+        return redirect(to='habit-detail', pk=habit.pk)
+    else:
+        form = AddComment()
+        return render(request, "add_comment.html", {
+            'daily_record' : daily_record,
+            'form' : form,
+            'habit' : habit,
+        })
