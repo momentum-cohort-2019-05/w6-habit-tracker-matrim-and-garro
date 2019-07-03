@@ -176,6 +176,12 @@ def add_buddy(request,pk):
             'current_buddies' : current_buddies
         })
 
-def social(request):
+@login_required
+def social(request,pk):
+    user = User.objects.get(pk=pk)
+    habit_buddy_list = user.habits.all()
+    # breakpoint()
     return render(request, "social.html", {
+        'user' : user,
+        'habit_buddy_list' : habit_buddy_list,
     })

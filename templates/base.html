@@ -28,7 +28,7 @@
   <a href="{% url 'home' %}">Home</a>
   {% if user.is_authenticated %}
   | <a href="{% url 'habit-manager' pk=request.user.pk %}">Habit Manager</a> |
-  <a href="{% url 'social' %}">Social</a>
+  <a href="{% url 'social' pk=request.user.pk %}">Social</a>
   {% endif %}
 
   {% block content %}
