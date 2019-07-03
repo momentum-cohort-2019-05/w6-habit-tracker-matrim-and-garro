@@ -24,7 +24,8 @@
     {% endif %}
 
     {% if request.user == habit.owner %}
-    <a href="{% url 'edit-daily-record' pk=record.pk %}?date={{record.date.year}}-{{record.date.month}}-{{record.date.day}}">Update</a></p>
+    <a href="{% url 'edit-daily-record' pk=record.pk %}?date={{record.date.year}}-{{record.date.month}}-{{record.date.day}}">Update</a>
+    <a class="red" href="{% url 'delete-record' pk=habit.pk %}">Delete Record</a>
     {% endif %}
     
   {% else %}

@@ -219,3 +219,11 @@ def add_comment(request,pk):
             'form' : form,
             'habit' : habit,
         })
+
+
+@login_required
+def delete_record(request, pk):
+    record = DailyRecord.objects.get(id=pk)
+    if request.user == record.habit.owner:
+        record.delete()
+    return redirect(to="habit-detail", pk=habit.pk)
