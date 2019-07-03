@@ -20,7 +20,7 @@
   {% endif %}
   <p><a href='{% url "add-buddy" pk=habit.pk %}'>Add a Buddy</a></p>
   {% if habit.yesterday_missing %}
-  <p><a class= red href="{% url 'create-daily-record' pk=habit.pk %}?date={{yesterday.year}}-{{yesterday.month}}-{{yesterday.day}}">Missing Yesterday - Add Record Now</a></p>
+  <p><a class="red" href="{% url 'create-daily-record' pk=habit.pk %}?date={{yesterday.year}}-{{yesterday.month}}-{{yesterday.day}}">Missing Yesterday - Add Record Now</a></p>
   {% endif %}
   <br>
 {% endfor %}
