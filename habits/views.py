@@ -205,7 +205,12 @@ def add_comment(request,pk):
     daily_record = DailyRecord.objects.get(pk=pk)
     habit = daily_record.habit
     if request.method == 'POST':
-        pass
+        form = AddComment(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            new_comment = Comment(user=request.user,content=content,target_record=daily_record)
+            new_comment.save()
+        return redirect(to='habit-detail', pk=habit.pk)
     else:
         form = AddComment()
         return render(request, "add_comment.html", {

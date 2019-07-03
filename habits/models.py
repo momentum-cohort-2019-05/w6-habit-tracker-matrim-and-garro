@@ -46,7 +46,7 @@ class DailyRecord(models.Model):
 class Comment(models.Model):
     content = models.TextField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    target_book = models.ForeignKey('DailyRecord', on_delete=models.CASCADE, null=True)
+    target_record = models.ForeignKey('DailyRecord', on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
