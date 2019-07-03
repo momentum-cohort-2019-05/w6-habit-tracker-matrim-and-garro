@@ -9,7 +9,7 @@ class Habit(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     unit = models.CharField(max_length=200)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    buddy = models.ManyToManyField(User, related_name="buddy")
+    buddies = models.ManyToManyField(User, related_name="habits")
 
     def __str__(self):
         if self.over == True:
