@@ -17,6 +17,7 @@ def home(request):
 
 @login_required
 def habit_manager(request, pk):
+    yesterday = date.today() - timedelta(days=1)
     list_of_habits = Habit.objects.filter(owner__pk=pk)
     today = date.today()
     updated_today = {}
@@ -30,7 +31,8 @@ def habit_manager(request, pk):
     
     return render(request, "habit_manager.html", {
         'list_of_habits' : list_of_habits,
-        'updated_today' : updated_today
+        'updated_today' : updated_today,
+        'yesterday' : yesterday,
     })
 
 @login_required
@@ -227,3 +229,11 @@ def delete_record(request, pk):
     if request.user == record.habit.owner:
         record.delete()
     return redirect(to="habit-detail", pk=habit.pk)
+
+@login_required
+def delete_habit(request,pk):
+    """deletes a habit"""
+    habit = Habit.objects.get(pk=pk)
+    if request.user == habit.owner:
+        habit.delete()
+    return redirect(to='habit-manager', pk=request.user.pk)

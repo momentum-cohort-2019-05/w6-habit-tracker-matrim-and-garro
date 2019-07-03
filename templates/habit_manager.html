@@ -6,7 +6,7 @@
 <strong><a href="{% url 'create-habit' pk=request.user.pk %}">Create New Habit</a></strong>
 <h3>List of Habits<h3>
 {% for habit in list_of_habits %}
-  <a href="{% url 'habit-detail' pk=habit.pk %}">{{ habit }}</a> | 
+  <p><a href="{% url 'habit-detail' pk=habit.pk %}">{{ habit }}</a></p>
   {% if habit.updated_today %}
     {% if habit.last_update.meets_goal %}
       <strong class="green">{{habit.last_update.quantity}} {{ habit.unit }} - <em> - Updated Today</em>
@@ -18,7 +18,11 @@
   {% else %}
     <a href="{% url 'create-daily-record' pk=habit.pk %}">Add today's value</a>
   {% endif %}
-  | <a href='{% url "add-buddy" pk=habit.pk %}'>Add a Buddy</a>
+  <p><a href='{% url "add-buddy" pk=habit.pk %}'>Add a Buddy</a></p>
+  {% if habit.yesterday_missing %}
+  <p><a class="red" href="{% url 'create-daily-record' pk=habit.pk %}?date={{yesterday.year}}-{{yesterday.month}}-{{yesterday.day}}">Missing Yesterday - Add Record Now</a></p>
+  {% endif %}
+  <p><a class="red" href="{% url 'delete-habit' pk=habit.pk %}">Delete</a></p>
   <br>
 {% endfor %}
 
