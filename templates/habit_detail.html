@@ -8,9 +8,9 @@
   <p>{{ record.date }} | 
   {% if record.quantity >= 0 %}
     {% if record.meets_goal %}
-      <strong class="green">{{record.quantity}}</strong>
+      <strong class="green">{{record.quantity}} | Great job! You met your goal!</strong>
     {% else %}
-      <strong class="red">{{record.quantity}}</strong>
+      <strong class="red">{{record.quantity}} | You did not meet your goal this day.  Keep working!</strong>
     {% endif %}
     <a href="{% url 'edit-daily-record' pk=record.pk %}?date={{record.date.year}}-{{record.date.month}}-{{record.date.day}}">Update</a></p>
   {% else %}

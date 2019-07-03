@@ -9,9 +9,9 @@
   <a href="{% url 'habit-detail' pk=habit.pk %}">{{ habit }}</a> | 
   {% if habit.updated_today %}
     {% if habit.last_update.meets_goal %}
-      <strong class="green">{{habit.last_update.quantity}}</strong>
+      <strong class="green">{{habit.last_update.quantity}} | Great job! You met your goal!</strong>
     {% else %}
-      <strong class="red">{{habit.last_update.quantity}}</strong>
+      <strong class="red">{{habit.last_update.quantity}} | You did not meet your goal this day.  Keep working!</strong>
     {% endif %}
     {{ habit.unit }} - <em> - Updated Today</em>
   {% else %}
