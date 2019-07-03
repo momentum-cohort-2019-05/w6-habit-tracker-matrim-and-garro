@@ -3,7 +3,9 @@ from habits.models import Habit, DailyRecord
 from django.contrib.auth.decorators import login_required
 from datetime import date, datetime
 from datetime import datetime, timedelta
-from habits.forms import CreateDailyRecord, EditDailyRecord
+from habits.forms import CreateDailyRecord, EditDailyRecord, CreateHabit
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -113,6 +115,29 @@ def edit_daily_record(request, pk):
             'edit_date' : edit_date,
             'form' : form,
             'daily_record' : daily_record,
+        })
+
+@login_required
+def create_habit(request, pk):
+    """creates a new habit for the owner at pk"""
+    owner = User.objects.get(pk=pk)
+
+    if request.method == "POST":
+        form = CreateHabit(request.POST)
+        # breakpoint()
+        if form.is_valid():
+            verb = form.cleaned_data['verb']
+            over = form.cleaned_data['over']
+            quantity = form.cleaned_data['quantity']
+            unit = form.cleaned_data['unit']
+            new_habit = Habit(owner=owner, verb=verb, over=over, quantity=quantity, unit=unit)
+            new_habit.save()
+        return redirect(to='habit-manager', pk=request.user.pk)
+    else:
+        form = CreateHabit()
+        return render(request, "create_habit.html", {
+            'owner' : owner,
+            'form' : form,
         })
 
 def social(request):

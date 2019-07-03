@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>Habit Manager - {{request.user}}</h1>
-
+<strong><a href="{% url 'create-habit' pk=request.user.pk %}">Create New Habit</a></strong>
 <h3>List of Habits<h3>
 {% for habit in list_of_habits %}
   <a href="{% url 'habit-detail' pk=habit.pk %}">{{ habit }}</a> | 
