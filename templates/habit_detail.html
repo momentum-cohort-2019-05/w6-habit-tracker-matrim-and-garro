@@ -5,6 +5,9 @@
 <h3>Habit Detail - {{habit}}</h3>
 <h3>Owner - {{habit.owner}}</h3>
 
+<p class=green>All Time Best - {{all_time_best.quantity}} {{habit.unit}} {{all_time_best.date}}</p>
+<p>Average for the last {{DAYS}} day(s) - {{interval_average}} {{habit.unit}}</p>
+
 {% for record in last_week_of_records %}
   <p>{{ record.date }} | 
   {% if record.quantity >= 0 %}

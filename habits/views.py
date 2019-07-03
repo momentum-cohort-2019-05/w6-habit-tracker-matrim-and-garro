@@ -39,6 +39,13 @@ def habit_detail(request, pk):
     list_of_records = habit.dailyrecord_set.all().order_by('-date')
     last_week_dates = []
     DAYS = 7
+    # data aggregations 
+    # AREA FOR IMPROVEMENT - should be in database
+    # all time best day
+    if habit.over:
+        all_time_best = habit.dailyrecord_set.all().order_by('-quantity').first()
+    else:
+        all_time_best = habit.dailyrecord_set.all().order_by('quantity').first()
     counter = 0
     while counter < DAYS:
         last_week_dates.append(date.today()-timedelta(days=counter))
@@ -50,16 +57,23 @@ def habit_detail(request, pk):
             last_week_of_records.append(day_record)
         except:
             last_week_of_records.append(DailyRecord(date=day, quantity=(-1)))
-        #     day.record = day_record
-        # except:
-        #     day.record = None
-    # breakpoint()
+    #avg day this interval
+    total = 0
+    for day_record in last_week_of_records:
+        if day_record.quantity > 0:
+            total += day_record.quantity
+    interval_average = round((total / DAYS),2)
+
+    
         
     return render(request, "habit_detail.html", {
         'list_of_records' : list_of_records,
         'last_week_dates' : last_week_dates,
         'habit' : habit,
         'last_week_of_records' : last_week_of_records,
+        'all_time_best' : all_time_best,
+        'interval_average' : interval_average,
+        'DAYS' : DAYS,
     })
 
 @login_required
