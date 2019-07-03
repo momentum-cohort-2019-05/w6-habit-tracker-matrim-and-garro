@@ -170,6 +170,7 @@ def add_buddy(request,pk):
                 elif buddy_user != request.user:
                     habit.buddies.add(buddy_user)
                     habit.save()
+                    current_buddies = habit.buddies.all()
                     message = f'{username} added sucessfully.'
                 else:
                     message = "You can't be your own buddy."
