@@ -35,10 +35,12 @@ def habit_manager(request, pk):
 
 @login_required
 def habit_detail(request, pk):
+    interval_str = request.GET.get('interval', default='7')
     habit = Habit.objects.get(id=pk)
     list_of_records = habit.dailyrecord_set.all().order_by('-date')
     last_week_dates = []
-    DAYS = 7
+    DAYS = int(interval_str)
+
     # data aggregations 
     # AREA FOR IMPROVEMENT - should be in database
     # all time best day
@@ -64,8 +66,6 @@ def habit_detail(request, pk):
             total += day_record.quantity
     interval_average = round((total / DAYS),2)
 
-    
-        
     return render(request, "habit_detail.html", {
         'list_of_records' : list_of_records,
         'last_week_dates' : last_week_dates,
