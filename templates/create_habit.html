@@ -3,7 +3,18 @@
 <h1>Create Habit : {{owner}}</h1>
 <form action="{% url 'create-habit' pk=owner.pk %}" method="POST">
     {% csrf_token %}
-    {{form.as_p}}
+    <p>I want to ...</p>
+    <p>Verb - (Walk, Eat, Write, etc.)<p>
+    <p><input required type="text" size="20" name="{{ form.verb.html_name }}"></p>
+    <p><input required type="radio" name="{{ form.over.html_name }}" value="True"> over </p>
+    <p><input required type="radio" name="{{ form.over.html_name }}" value="False"> under </p>
+    <p>Quantity - (Must be a positive number, no decimals)</p>
+    <p><input required type="text" size="20" name="{{ form.quantity.html_name }}"></p>
+    <p>Unit - (miles, calories, lines of code, etc.)</p>
+    <p><input required type="text" size="20" name="{{ form.unit.html_name }}"></p>
+    <p>... per day.</p>
     <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Submit</button>
 </form>
+
+
 {% endblock %}
