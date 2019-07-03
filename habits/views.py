@@ -17,6 +17,7 @@ def home(request):
 
 @login_required
 def habit_manager(request, pk):
+    yesterday = date.today() - timedelta(days=1)
     list_of_habits = Habit.objects.filter(owner__pk=pk)
     today = date.today()
     updated_today = {}
@@ -30,7 +31,8 @@ def habit_manager(request, pk):
     
     return render(request, "habit_manager.html", {
         'list_of_habits' : list_of_habits,
-        'updated_today' : updated_today
+        'updated_today' : updated_today,
+        'yesterday' : yesterday,
     })
 
 @login_required

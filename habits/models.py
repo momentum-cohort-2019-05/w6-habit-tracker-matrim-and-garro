@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+from datetime import date, timedelta
 from django.contrib.auth.models import User
 
 
@@ -17,6 +17,14 @@ class Habit(models.Model):
         else:
             over_str = "under"
         return f'{self.verb} {over_str} {self.quantity} {self.unit} per day'
+
+    def yesterday_missing(self):
+        yesterday = date.today() - timedelta(days=1)
+        try:
+            self.dailyrecord_set.get(date=yesterday)
+            return False
+        except:
+            return True
     
     def last_update(self):
         """returns the DailyRecord object of the last update"""
