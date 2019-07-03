@@ -38,6 +38,13 @@ class DailyRecord(models.Model):
     def __str__(self):
         return f"{self.date}|{self.quantity}|{self.habit}"
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['habit', 'date'], name="user")
+            ]
+
+    
+
 class Buddy(models.Model):
     pass
 
