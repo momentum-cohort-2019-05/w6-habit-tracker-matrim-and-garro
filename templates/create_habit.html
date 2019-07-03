@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content%}
+<h1>Create Habit : {{owner}}</h1>
+<form action="{% url 'create-habit' pk=owner.pk %}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Submit</button>
+</form>
+{% endblock %}
