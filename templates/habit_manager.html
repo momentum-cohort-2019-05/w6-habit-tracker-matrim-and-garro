@@ -20,6 +20,9 @@
   {% endif %}
   | <a href='{% url "add-buddy" pk=habit.pk %}'>Add a Buddy</a>
   <br>
+  {% if habit.yesterday_missing %}
+  <p>Missing Yesterday</p>
+  {% endif %}
 {% endfor %}
 
 
