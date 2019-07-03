@@ -78,7 +78,7 @@ def create_daily_record(request, pk):
             quantity = form.cleaned_data['quantity']
             new_record = DailyRecord(date=create_date, quantity=quantity, habit=habit)
             new_record.save()
-        return redirect(to=habit_manager, pk=habit.owner.pk)
+        return redirect(to='habit-detail', pk=habit.pk)
     else:
         form = CreateDailyRecord()
         return render(request, "create_daily_record.html", {
@@ -106,7 +106,7 @@ def edit_daily_record(request, pk):
             quantity = form.cleaned_data['quantity']
             daily_record.quantity = quantity
             daily_record.save()
-        return redirect(to=habit_manager, pk=request.user.pk)
+        return redirect(to='habit-detail', pk=daily_record.habit.pk)
     else:
         form = EditDailyRecord()
         return render(request, "edit_daily_record.html", {
