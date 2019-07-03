@@ -22,6 +22,7 @@
   {% if habit.yesterday_missing %}
   <p><a class="red" href="{% url 'create-daily-record' pk=habit.pk %}?date={{yesterday.year}}-{{yesterday.month}}-{{yesterday.day}}">Missing Yesterday - Add Record Now</a></p>
   {% endif %}
+  <p><a class="red" href="{% url 'delete-habit' pk=habit.pk %}">Delete</a></p>
   <br>
 {% endfor %}
 
