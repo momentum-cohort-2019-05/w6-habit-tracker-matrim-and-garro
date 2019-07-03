@@ -4,14 +4,12 @@ from django.contrib.auth.models import User
 
 
 class Habit(models.Model):
-    # label = models.CharField(max_length=200)
-    # description = models.TextField(max_length=1000)
     verb = models.CharField(max_length=200)
     over = models.BooleanField(default=True)
     quantity = models.PositiveIntegerField(default=0)
     unit = models.CharField(max_length=200)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    buddies = models.ManyToManyField(User, related_name="habits")
 
     def __str__(self):
         if self.over == True:
@@ -40,9 +38,10 @@ class DailyRecord(models.Model):
     def __str__(self):
         return f"{self.date}|{self.quantity}|{self.habit}"
 
+class Buddy(models.Model):
+    pass
+
 class Comment(models.Model):
     pass
 
-class Observer(models.Model):
-    pass
 

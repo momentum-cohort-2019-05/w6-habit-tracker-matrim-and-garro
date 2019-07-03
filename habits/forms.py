@@ -1,5 +1,5 @@
 from django import forms
-from habits.models import Habit, DailyRecord
+from habits.models import Habit, DailyRecord, Buddy
 
 class CreateDailyRecord(forms.Form):
     quantity = forms.IntegerField()
@@ -12,3 +12,6 @@ class CreateHabit(forms.Form):
     over = forms.BooleanField(required=False)
     quantity = forms.IntegerField()
     unit = forms.CharField(max_length=50)
+
+class AddBuddy(forms.Form):
+    buddy = forms.CharField(max_length=100)

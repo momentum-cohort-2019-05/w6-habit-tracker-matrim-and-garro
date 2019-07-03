@@ -3,7 +3,7 @@ from habits.models import Habit, DailyRecord
 from django.contrib.auth.decorators import login_required
 from datetime import date, datetime
 from datetime import datetime, timedelta
-from habits.forms import CreateDailyRecord, EditDailyRecord, CreateHabit
+from habits.forms import CreateDailyRecord, EditDailyRecord, CreateHabit, AddBuddy
 from django.contrib.auth.models import User
 
 
@@ -137,7 +137,43 @@ def create_habit(request, pk):
         form = CreateHabit()
         return render(request, "create_habit.html", {
             'owner' : owner,
+            'form' : form
+        })
+
+@login_required
+def add_buddy(request,pk):
+    habit = Habit.objects.get(pk=pk)
+    current_buddies = habit.buddies.all()
+    message = ''
+    if request.method == 'POST':
+        form = AddBuddy(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['buddy']
+            try:
+                buddy_user = User.objects.get(username=username)
+                if buddy_user in current_buddies:
+                    message = f"{username} is already a buddy for this habit."
+                elif buddy_user != request.user:
+                    habit.buddies.add(buddy_user)
+                    habit.save()
+                    message = f'{username} added sucessfully.'
+                else:
+                    message = "You can't be your own buddy."
+            except:
+                message = f'{username} not found.'
+        return render(request, "add_buddy.html", {
+            'habit' : habit,
             'form' : form,
+            'message' : message,
+            'current_buddies' : current_buddies
+        })
+    else:
+        form = AddBuddy()
+        return render(request, "add_buddy.html", {
+            'habit' : habit,
+            'form' : form,
+            'message' : message,
+            'current_buddies' : current_buddies
         })
 
 def social(request):
