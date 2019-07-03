@@ -143,7 +143,7 @@ def create_habit(request, pk):
 @login_required
 def add_buddy(request,pk):
     habit = Habit.objects.get(pk=pk)
-    current_buddies = habit.buddy_set.all()
+    current_buddies = habit.buddies.all()
     message = ''
     if request.method == 'POST':
         form = AddBuddy(request.POST)
@@ -151,12 +151,12 @@ def add_buddy(request,pk):
             username = form.cleaned_data['buddy']
             try:
                 buddy_user = User.objects.get(username=username)
-                if buddy_user != request.user:
-                    habit.buddy.add(buddy_user)
+                if buddy_user in current_buddies:
+                    message = f"{username} is already a buddy for this habit."
+                elif buddy_user != request.user:
+                    habit.buddies.add(buddy_user)
                     habit.save()
                     message = f'{username} added sucessfully.'
-                elif buddy_user in current_buddies:
-                    message = f"{username} is already a buddy for this habit."
                 else:
                     message = "You can't be your own buddy."
             except:
