@@ -3,6 +3,7 @@
 {% block content %}
 
 <h3>Habit Detail - {{habit}}</h3>
+<h3>Owner - {{habit.owner}}</h3>
 
 {% for record in last_week_of_records %}
   <p>{{ record.date }} | 
@@ -12,9 +13,16 @@
     {% else %}
       <strong class="red">{{record.quantity}} | You did not meet your goal this day.  Keep working!</strong>
     {% endif %}
+
+    {% if request.user == habit.owner %}
     <a href="{% url 'edit-daily-record' pk=record.pk %}?date={{record.date.year}}-{{record.date.month}}-{{record.date.day}}">Update</a></p>
+    {% endif %}
+    
   {% else %}
-    No Record | <a href="{% url 'create-daily-record' pk=habit.pk %}?date={{record.date.year}}-{{record.date.month}}-{{record.date.day}}">Add Now</a>
+    No Record 
+    {% if request.user == habit.owner %}
+    | <a href="{% url 'create-daily-record' pk=habit.pk %}?date={{record.date.year}}-{{record.date.month}}-{{record.date.day}}">Add Now</a>
+    {% endif %}
   {% endif %}
 {% endfor %}
 
