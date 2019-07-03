@@ -13,5 +13,6 @@ urlpatterns = [
     path('create-habit/<int:pk>', views.create_habit, name='create-habit'),
     path('add-buddy/<int:pk>', views.add_buddy, name='add-buddy'),
     path('add-comment/<int:pk>', views.add_comment, name='add-comment'),
+    path('delete-record/<int:pk>', views.delete_record, name='delete-record')
     path('delete-habit/<int:pk>', views.delete_habit, name='delete-habit'),
 ]

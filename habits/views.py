@@ -222,6 +222,14 @@ def add_comment(request,pk):
             'habit' : habit,
         })
 
+
+@login_required
+def delete_record(request, pk):
+    record = DailyRecord.objects.get(id=pk)
+    if request.user == record.habit.owner:
+        record.delete()
+    return redirect(to="habit-detail", pk=habit.pk)
+
 @login_required
 def delete_habit(request,pk):
     """deletes a habit"""
