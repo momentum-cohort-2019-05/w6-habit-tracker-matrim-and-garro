@@ -31,6 +31,11 @@
     | <a href="{% url 'create-daily-record' pk=habit.pk %}?date={{record.date.year}}-{{record.date.month}}-{{record.date.day}}">Add Now</a>
     {% endif %}
   {% endif %}
+  {% if record.comment_set %}
+    {% for comment in record.comment_set.all %}
+      <p>{{comment.content}} - <em>{{comment.user}}</em></p>
+    {% endfor %}
+  {% endif %}
 {% endfor %}
 
 {% endblock %}
