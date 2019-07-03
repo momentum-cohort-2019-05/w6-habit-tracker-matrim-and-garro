@@ -3,7 +3,7 @@
 <h1>Social - {{user}}</h1>
 <p>Be a good buddy:</p>
 {% for habit in habit_buddy_list %}
-    <p><a href="">{{habit}}</a>-{{habit.owner}}</p>
+    <p><a href="{% url 'habit-detail' pk=habit.pk %}">{{habit}}</a>-{{habit.owner}}</p>
     <p>Last update: {{habit.last_update.date}} 
         {% if habit.last_update.meets_goal %}
             <strong class="green">qty: {{habit.last_update.quantity}} They met your goal!</strong>
