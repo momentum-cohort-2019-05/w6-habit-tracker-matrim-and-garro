@@ -221,3 +221,11 @@ def add_comment(request,pk):
             'form' : form,
             'habit' : habit,
         })
+
+@login_required
+def delete_habit(request,pk):
+    """deletes a habit"""
+    habit = Habit.objects.get(pk=pk)
+    if request.user == habit.owner:
+        habit.delete()
+    return redirect(to='habit-manager', pk=request.user.pk)
