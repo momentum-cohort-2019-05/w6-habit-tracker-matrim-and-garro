@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content%}
+<h1>Commenting on {{daily_record.quantity}} {{habit.unit}} - {{daily_record.date}}</h1>
+<form action="{% url 'add-comment' pk=daily_record.pk %}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Submit</button>
+</form>
+{% endblock %}

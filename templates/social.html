@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Social - {{user}}</h1>
-<p>Be a good buddy:</p>
+{% if habit_buddy_list %}
+  <p>Be a good buddy:</p>
+{% endif %}
 {% for habit in habit_buddy_list %}
     <p><a href="{% url 'habit-detail' pk=habit.pk %}">{{habit}}</a>-{{habit.owner}}</p>
     <p>Last update: {{habit.last_update.date}} 
