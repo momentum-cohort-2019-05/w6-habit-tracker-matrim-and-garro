@@ -9,6 +9,6 @@ class EditDailyRecord(forms.Form):
 
 class CreateHabit(forms.Form):
     verb = forms.CharField(max_length=50)
-    over = forms.BooleanField()
+    over = forms.BooleanField(required=False)
     quantity = forms.IntegerField()
     unit = forms.CharField(max_length=50)
