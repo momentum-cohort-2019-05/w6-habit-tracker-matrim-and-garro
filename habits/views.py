@@ -47,7 +47,11 @@ def habit_detail(request, pk):
             day_record = list_of_records.get(date=day)
             last_week_of_records.append(day_record)
         except:
-            last_week_of_records.append(None)
+            last_week_of_records.append(DailyRecord(date=day, quantity=(-1)))
+        #     day.record = day_record
+        # except:
+        #     day.record = None
+    # breakpoint()
         
     return render(request, "habit_detail.html", {
         'list_of_records' : list_of_records,
@@ -63,8 +67,9 @@ def create_daily_record(request, pk):
     today = datetime.today()
     today_url_arg = f"{today.year}-{today.month}-{today.day}"
     date_url_arg = request.GET.get('date', default=today_url_arg)
+    # breakpoint()
     ymd_list = date_url_arg.split("-")
-    create_date = datetime(int(ymd_list[0]),int(ymd_list[1]),int(ymd_list[2]))
+    create_date = date(int(ymd_list[0]),int(ymd_list[1]),int(ymd_list[2]))
 
     if request.method == "POST":
         form = CreateDailyRecord(request.POST)
@@ -85,7 +90,30 @@ def create_daily_record(request, pk):
 @login_required
 def edit_daily_record(request, pk):
     """edits a daily record using the pk of the DailyRecord object"""
-    return render(request, "edit_daily_record.html", {})
+    daily_record = DailyRecord.objects.get(pk=pk)
+    # today = datetime.today()
+    # today_url_arg = f"{today.year}-{today.month}-{today.day}"
+    # date_url_arg = request.GET.get('date', default=today_url_arg)
+    date_url_arg = request.GET.get('date')
+    # breakpoint()
+    ymd_list = date_url_arg.split("-")
+    edit_date = date(int(ymd_list[0]),int(ymd_list[1]),int(ymd_list[2]))
+
+    if request.method == "POST":
+        form = EditDailyRecord(request.POST)
+        # breakpoint()
+        if form.is_valid():
+            quantity = form.cleaned_data['quantity']
+            daily_record.quantity = quantity
+            daily_record.save()
+        return redirect(to=habit_manager, pk=request.user.pk)
+    else:
+        form = EditDailyRecord()
+        return render(request, "edit_daily_record.html", {
+            'edit_date' : edit_date,
+            'form' : form,
+            'daily_record' : daily_record,
+        })
 
 def social(request):
     return render(request, "social.html", {

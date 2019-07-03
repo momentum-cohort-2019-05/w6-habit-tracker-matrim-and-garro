@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
 {% block content%}
-<h1>Edit Daily Record</h1>
+<h1>Edit Daily Record : {{edit_date}}</h1>
+<form action="{% url 'edit-daily-record' pk=daily_record.pk %}?date={{edit_date.year}}-{{edit_date.month}}-{{edit_date.day}}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Submit</button>
+</form>
 {% endblock %}
