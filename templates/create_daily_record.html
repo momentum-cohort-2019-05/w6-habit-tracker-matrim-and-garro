@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content%}
-<h1>Create Daily Record : {{create_date.month}}-{{create_date.day}}-{{create_date.year}}</h1>
-<form action="{% url 'create-daily-record' pk=habit.pk %}" method="POST">
+<h1>Create Daily Record : {{create_date}}</h1>
+<form action="{% url 'create-daily-record' pk=habit.pk %}?date={{create_date.year}}-{{create_date.month}}-{{create_date.day}}" method="POST">
     {% csrf_token %}
     {{form.as_p}}
     <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Submit</button>

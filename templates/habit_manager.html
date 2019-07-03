@@ -6,7 +6,7 @@
 
 <h3>List of Habits<h3>
 {% for habit in list_of_habits %}
-  <a href="">{{ habit }}</a> | 
+  <a href="{% url 'habit-detail' pk=habit.pk %}">{{ habit }}</a> | 
   {% if habit.updated_today %}
     {% if habit.last_update.meets_goal %}
       <strong class="green">{{habit.last_update.quantity}}</strong>

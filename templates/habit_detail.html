@@ -4,33 +4,20 @@
 
 <h3>Habit Detail - {{habit}}</h3>
 
-{% for record in list_of_records %}
-  
-  <p>{{ record.date }} | {{ record.quantity }} | <a href="">Update</a></p>
-
-{% endfor %}
-
-
-
-{% if habit.last_update.meets_goal %}
-      <strong class="green">{{habit.last_update.quantity}}</strong>
-    {% else %}
-      <strong class="red">{{habit.last_update.quantity}}</strong>
-    {% endif %}
-
-{% for day in last_week_dates %}
-  <p>{{day.month}}-{{day.day}}-{{day.year}}</p>
-{% endfor %}
-
 {% for record in last_week_of_records %}
-  <p>
-    {% if record is None %}
-      <a href="{% url 'create-daily-record' pk=habit.pk %}">Update</a>
+  <p>{{ record.date }} | 
+  {% if record.quantity >= 0 %}
+    {% if record.meets_goal %}
+      <strong class="green">{{record.quantity}}</strong>
     {% else %}
-      {{record.quantity}}
+      <strong class="red">{{record.quantity}}</strong>
     {% endif %}
-  </p>
+    <a href="{% url 'edit-daily-record' pk=record.pk %}?date={{record.date.year}}-{{record.date.month}}-{{record.date.day}}">Update</a></p>
+  {% else %}
+    No Record | <a href="{% url 'create-daily-record' pk=habit.pk %}?date={{record.date.year}}-{{record.date.month}}-{{record.date.day}}">Add Now</a>
+  {% endif %}
 {% endfor %}
+
 
 
 
